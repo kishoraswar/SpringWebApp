@@ -20,8 +20,10 @@ pipeline {
                 TOMCAT_URL = 'http://3.216.125.233:8080/' // the URL of the Tomcat server
                 WAR_FILE = 'target/*.war' // the path to the WAR artifact
                 CONTEXT_PATH = '/myapp1' // the context path of the web application
-                USERNAME = 'admin' // the username of a user with the manager-script role
-                PASSWORD = 'admin' // the password of the user
+                //USERNAME = 'admin' // the username of a user with the manager-script role
+                //PASSWORD = 'admin' // the password of the user
+                USERNAME = credentials('tomcat_deployer').username
+                PASSWORD = credentials('tomcat_deployer').password
             }
 
             steps {
