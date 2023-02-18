@@ -3,20 +3,6 @@ pipeline {
 
     stages {
         
-        
-    
-    stage('Webhook Trigger') {
-       steps {
-        webhook (
-            url: 'http://34.207.58.8:8080/github-webhook',
-            method: 'POST',
-            contentType: 'APPLICATION_JSON',
-            responseHandle: 'NONE',
-            printPostContent: true
-        )
-           }
-         }
-        
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Namo-shubham/SpringWebApp.git']]])
@@ -35,14 +21,13 @@ pipeline {
                 TOMCAT_URL = 'http://3.216.125.233:8080/' // the URL of the Tomcat server
                 WAR_FILE = 'target/*.war' // the path to the WAR artifact
                 CONTEXT_PATH = '/myapp1' // the context path of the web application
-                //USERNAME = 'admin' // the username of a user with the manager-script role
-                //PASSWORD = 'admin' // the password of the user
-                USERNAME = "credentials('tomcat_deployer').username"
-                PASSWORD = "credentials('tomcat_deployer').password"
+                USERNAME = 'admin' // the username of a user with the manager-script role
+                PASSWORD = 'admin' // the password of the user
+          
             }
 
             steps {
-                withCredentials([usernamePassword(credentialsId: 'tomcat_deployer', usernameVariable: '${USERNAME}', passwordVariable: '${PASSWORD}')]) {
+                withCredentials([usernamePassword(credentialsId: 'tomcat_deployer', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'curl -T $WAR_FILE $TOMCAT_URL/manager/text/deploy?path=$CONTEXT_PATH -u $USERNAME:$PASSWORD' // deploy the WAR artifact using cURL
                 }
             }
