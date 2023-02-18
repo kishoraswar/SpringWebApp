@@ -15,7 +15,7 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war' // archive the WAR artifact
             }
         }
-
+        
         stage('Deploy') {
             environment {
                 TOMCAT_URL = 'http://3.216.125.233:8080/' // the URL of the Tomcat server
