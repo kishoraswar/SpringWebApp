@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn install -Dmaven.test.failure.ignore=true' // build the WAR artifact using Maven
+                sh 'mvn clean install -Dmaven.test.failure.ignore=true' // build the WAR artifact using Maven
                 archiveArtifacts artifacts: 'target/*.war' // archive the WAR artifact
             }
         }
