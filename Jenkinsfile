@@ -27,7 +27,7 @@ pipeline {
             }
 
             steps {
-                withCredentials([usernamePassword(credentialsId: 'tomcat_deployer', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'tomcat_deployer', usernameVariable: '${USERNAME}', passwordVariable: '${PASSWORD}')]) {
                     sh 'curl -T $WAR_FILE $TOMCAT_URL/manager/text/deploy?path=$CONTEXT_PATH -u $USERNAME:$PASSWORD' // deploy the WAR artifact using cURL
                 }
             }
