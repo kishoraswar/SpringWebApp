@@ -22,8 +22,8 @@ pipeline {
                 CONTEXT_PATH = '/myapp1' // the context path of the web application
                 //USERNAME = 'admin' // the username of a user with the manager-script role
                 //PASSWORD = 'admin' // the password of the user
-                USERNAME = 'credentials('tomcat_deployer').username'
-                PASSWORD = 'credentials('tomcat_deployer').password'
+                USERNAME = "credentials('tomcat_deployer').username"
+                PASSWORD = "credentials('tomcat_deployer').password"
             }
 
             steps {
