@@ -2,6 +2,21 @@ pipeline {
     agent any
 
     stages {
+        
+        
+    
+    stage('Webhook Trigger') {
+       steps {
+        webhook (
+            url: 'http://34.207.58.8:8080/github-webhook',
+            method: 'POST',
+            contentType: 'APPLICATION_JSON',
+            responseHandle: 'NONE',
+            printPostContent: true
+        )
+           }
+         }
+        
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/Namo-shubham/SpringWebApp.git']]])
