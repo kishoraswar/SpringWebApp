@@ -6,6 +6,7 @@
 	<groupId>com.javacodegeeks</groupId>
 	<artifactId>SpringBootWeb</artifactId>
 	<version>1.0</version>
+	<packaging>war</packaging>
 
 	<name>SpringBootWeb</name>
 	<description>Demo project for Spring Boot</description>
