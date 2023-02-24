@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the code from your Git repository
+                git branch: 'main',
+                    credentialsId: 'git-credentials', // Your Git credentials ID
+                    url: 'https://github.com/your/repo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Your build steps here
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Your test steps here
+                sh 'mvn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Install the Tomcat plugin for Jenkins
+                // This assumes that you have already configured a Tomcat server in Jenkins
+                // and installed the Tomcat plugin
+                tomcatDeploy(
+                    credentialsId: 'tomcat-credentials', // Your Tomcat server credentials ID
+                    war: '**/*.war', // Path to your WAR artifact
+                    contextPath: '/', // Tomcat context path to deploy to
+                    containerUrl: 'http://localhost:8080' // URL of your Tomcat server
+                )
+            }
+        }
+    }
+}
